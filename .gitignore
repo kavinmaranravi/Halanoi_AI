@@ -1,0 +1,15 @@
+# Virtual Environment
+transformer_env/
+
+# Python caching
+__pycache__/
+*.pyc
+
+# Local Transformer Weights (Too large for Git)
+halanoi_transformer/
+
+# Large compiled binaries (Upload to GitHub Releases instead)
+*.tflite
+
+# Temporary Text Documents
+*.txt
