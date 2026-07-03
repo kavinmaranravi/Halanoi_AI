@@ -7,6 +7,9 @@ We would like to acknowledge and express our gratitude to the creators and maint
 *   **Hugging Face Model Hub**: For hosting the **`distilbert-base-uncased`** base model, which provides a lightweight, highly efficient foundation for our classification tasks.
 *   **TensorFlow & TensorFlow Lite (Google)**: For the machine learning engine and the conversion utilities that allow us to optimize large transformer models into highly compressed `.tflite` files suitable for offline on-device mobile inference.
 
+> [!NOTE]
+> **Python 3.12+ Compatibility Patch**: We identified and resolved a compatibility bug in Hugging Face's `transformers` library (`modeling_tf_pytorch_utils.py`) that throws a `TypeError: 'builtins.safe_open' object is not iterable` on Python 3.12+ setups running TensorFlow without PyTorch. We patched this by checking if the weights file is a `safe_open` object and safely iterating over its keys using `.keys()`.
+
 ## 📊 Data & Processing Utilities
 *   **Pandas**: For the fast, flexible, and expressive data structures used to clean, filter, and preprocess our training dataset (`training_data.csv`).
 *   **Numpy**: For the fundamental scientific computing support inside our dataset matrix manipulations.
