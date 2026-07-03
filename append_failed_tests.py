@@ -61,7 +61,18 @@ tests = [
     ("nearest grocery store open now", "safe"),
     ("directions to the nearest gas station", "safe"),
     ("is it going to rain tomorrow", "safe"),
-    ("coffee shops near me", "safe")
+    ("coffee shops near me", "safe"),
+    ("okay I am gonna to do make tutorial video for halanoi android app on a single video with included both dpm act", "safe"),
+    ("tneb bill", "safe"),
+    ("tneb bill status", "safe"),
+    ("electricity bill", "safe"),
+    ("electricity bill payment", "safe"),
+    ("tneb quick pay online", "safe"),
+    ("water bill status", "safe"),
+    ("gas bill download", "safe"),
+    ("tutorial video for android app development", "safe"),
+    ("how to make a programming tutorial", "safe"),
+    ("dpm activation tutorial", "safe")
 ]
 
 df_new = pd.DataFrame(tests, columns=["text", "label"])

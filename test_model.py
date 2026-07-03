@@ -1,9 +1,10 @@
-from transformers import pipeline
+from transformers import AutoTokenizer, TFAutoModelForSequenceClassification
+import tensorflow as tf
+import numpy as np
 
-clf = pipeline(
-    "text-classification",
-    model="halanoi_transformer"
-)
+tokenizer = AutoTokenizer.from_pretrained("halanoi_transformer")
+model = TFAutoModelForSequenceClassification.from_pretrained("halanoi_transformer")
+id2label = model.config.id2label
 
 tests = [
     ("Gemini Hi maran What should we do next?", "safe"),
@@ -68,12 +69,16 @@ tests = [
 correct = 0
 print("\n--- RUNNING MODEL TESTS ---")
 for text, expected in tests:
-    result = clf(text)[0]
-    prediction = result['label']
+    inputs = tokenizer(text, return_tensors="tf", truncation=True, padding=True)
+    outputs = model(inputs)
+    probs = tf.nn.softmax(outputs.logits, axis=-1)
+    pred_id = int(np.argmax(probs.numpy()[0]))
+    prediction = id2label[pred_id]
+    score = float(probs.numpy()[0][pred_id])
     
     if prediction == expected:
         correct += 1
-        print(f"✅ [RIGHT] {text[:40]:<40}... -> Pred: {prediction} ({result['score']:.2f})")
+        print(f"✅ [RIGHT] {text[:40]:<40}... -> Pred: {prediction} ({score:.2f})")
     else:
         print(f"❌ [WRONG] {text[:40]:<40}... -> Pred: {prediction} (Expected: {expected})")
 
